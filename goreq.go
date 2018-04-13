@@ -332,24 +332,24 @@ func (r Request) Do() (*Response, error) {
 		client = proxyClient
 	}
 
-	client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
+	// client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
 
-		if len(via) > r.MaxRedirects {
-			redirectFailed = true
-			return errors.New("Error redirecting. MaxRedirects reached")
-		}
+	// 	if len(via) > r.MaxRedirects {
+	// 		redirectFailed = true
+	// 		return errors.New("Error redirecting. MaxRedirects reached")
+	// 	}
 
-		resUri = req.URL.String()
+	// 	resUri = req.URL.String()
 
-		//By default Golang will not redirect request headers
-		// https://code.google.com/p/go/issues/detail?id=4800&q=request%20header
-		if r.RedirectHeaders {
-			for key, val := range via[0].Header {
-				req.Header[key] = val
-			}
-		}
-		return nil
-	}
+	// 	//By default Golang will not redirect request headers
+	// 	// https://code.google.com/p/go/issues/detail?id=4800&q=request%20header
+	// 	if r.RedirectHeaders {
+	// 		for key, val := range via[0].Header {
+	// 			req.Header[key] = val
+	// 		}
+	// 	}
+	// 	return nil
+	// }
 
 	if transport, ok := transport.(*http.Transport); ok {
 		if r.Insecure {
