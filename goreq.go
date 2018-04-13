@@ -332,6 +332,9 @@ func (r Request) Do() (*Response, error) {
 		client = proxyClient
 	}
 
+	//Using default checkRedirect function. This override closed on redirectFailed variable and due to concurrency issues,
+	// the redirect(302) reqeuest were failing with max redirect.
+
 	// client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
 
 	// 	if len(via) > r.MaxRedirects {
